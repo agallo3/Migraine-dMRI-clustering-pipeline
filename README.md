@@ -8,7 +8,7 @@ Code for the article:
 
 ## Pipeline
 
-![Pipeline](images/pipeline.png)
+![Pipeline](pipeline/pipeline.png)
 
 1. Z-score normalization of the diffusion metrics.
 2. Dimensionality reduction with an autoencoder.
