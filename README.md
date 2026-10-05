@@ -33,10 +33,12 @@ Patient data are **not included** in this repository due to privacy restrictions
 
 **Features file** (`,`-separated): one row per subject, an index column `ID`, and one column per diffusion metric and white matter region (48 regions, JHU ICBM-DTI-81 atlas). One file per diffusion model and group.
 
+**Clinical file** (`;`-separated) must contain the following columns:
+
 | Column | Description |
 |--------|-------------|
-| `ID` | Subject identifier (`CM1`…`CM56`, `EM1`…`EM54`, matching the feature files) |
-| `CM` | 1 = chronic migraine, 0 = episodic migraine |
+| `ID` | Subject identifier, matching the features file |
+| `CM_base` | 1 = chronic migraine, 0 = episodic migraine |
 | `Woman` | 1 = woman, 0 = man |
 | `Age` | Age (years) |
 | `MOH` | Medication overuse headache (1 = presence, 0 = absence) |
@@ -44,7 +46,7 @@ Patient data are **not included** in this repository due to privacy restrictions
 | `freq_mig` | Monthly migraine frequency (days/month) |
 | `time_mig` | Years since migraine onset |
 | `time_cro` | Time since onset of chronic migraine (CM only) |
-| `topiramate_binary` | Response to topiramate (1 = positive, 0 = no response; CM only, empty if not available) |
+| `TopiramateResponse` | Response to topiramate: `Good`, `Excellent` or `No` (CM only, empty if not available) |
 | `CM_long` | Diagnosis of CM at least 3 years after MRI (CM only, empty if not available) |
 
 
