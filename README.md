@@ -14,23 +14,24 @@ Code for the article:
 2. Dimensionality reduction with an autoencoder.
 3. Feature selection based on the autoencoder reconstruction error.
 4. PCA on the selected features.
-5. Clustering with K-Means, Agglomerative and Spectral clustering.
+5. Estimation of the optimal number of clusters with NbClust (R).
+6. Clustering with K-Means, Agglomerative and Spectral clustering.
 
-All steps are implemented in [`migraine_clustering_pipeline.py`](migraine_clustering_pipeline.py).
+The same code is applied to each diffusion model (DTI, AMURA, DTI+AMURA) and each group (all patients, CM, EM), changing only the input feature matrix.
 
 ## Repository structure
 
 | Path | Description |
 |------|-------------|
-| `migraine_clustering_pipeline.ipynb` | Pipeline functions (normalization, autoencoder, feature selection, PCA, clustering, longitudinal association) |
-| `longitudinal_association.ipynb` | 
-| `nbclust_optimal_k.R.' | 
+| `migraine_clustering_pipeline.ipynb` | Main pipeline: normalization, autoencoder, feature selection, PCA and clustering |
+| `nbclust_optimal_k.R` | Estimation of the optimal number of clusters (NbClust) on the PCA features saved by the pipeline |
+| `longitudinal_association.ipynb` | Exploratory longitudinal analysis in the CM group: logistic regression with LOOCV (AUC) and likelihood ratio test |
 
 ## Data
 
-Patient data are **not included** in this repository due to privacy restrictions. To run the code, place the following files in a `data/` folder at the repository root:
+Patient data are **not included** in this repository due to privacy restrictions. To run the code, provide the following files and set their paths in `FEATURES_PATH` and `CLINICAL_PATH` (last cell of `migraine_clustering_pipeline.ipynb`):
 
-`clinical.csv` must contain the following columns:
+**Features file** (`,`-separated): one row per subject, an index column `ID`, and one column per diffusion metric and white matter region (48 regions, JHU ICBM-DTI-81 atlas). One file per diffusion model and group.
 
 | Column | Description |
 |--------|-------------|
@@ -53,13 +54,7 @@ Patient data are **not included** in this repository due to privacy restrictions
 2. **Estimate the optimal number of clusters.** Set `model` in `nbclust_optimal_k.R` and run it. It reads the PCA features of the three groups.
 3. **Run the clustering.** Set `K_BEST` in the main notebook to the selected value and run it again. It prints the silhouette score for each clustering method.
 
-## Notes
-
-
 ## Requirements
 
-Python 3.11. Install dependencies with:
-
-```bash
-pip install -r requirements.txt
-```
+- Python 3.9: tensorflow/keras 2.15, scikit-learn, numpy, pandas, scipy, jupyter
+- R 4.1.2: NbClust
